@@ -1,11 +1,5 @@
 # Sustainability Tracker
 
-## Demo Video
-
-You can watch a demonstration of the project here:
-## Demo Video 
-
-<video width="600" controls> <source src="media/video.mp4" type="video/mp4"> Your browser does not support the video tag. </video>
 
 # Project Setup
 ## Cloning the Repository
@@ -13,7 +7,7 @@ You can watch a demonstration of the project here:
 To get started, clone this repository using the following command:
 
 ```sh
-git clone <repository_url> sustainability-tracker
+git clone https://github.com/Quanta-Naut/sustainability-tracker.git
 ```
 
 ## Backend Server
