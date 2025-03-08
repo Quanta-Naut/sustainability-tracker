@@ -1,33 +1,47 @@
 import React, { useState, useEffect } from "react";
 import "../index.css";
 
+/**
+ * ActionForm Component - Allows users to add new sustainability actions
+ * @param {function} onAddAction - Callback function to add a new action
+ */
 function ActionForm({ onAddAction }) {
+  // Default values for the form fields
   const initialFormState = {
     action: "",
     date: new Date().toISOString().split("T")[0], // Today's date in YYYY-MM-DD format
     points: 0,
   };
 
+  // State hooks for form data, error messages, and server status
   const [formData, setFormData] = useState(initialFormState);
   const [error, setError] = useState("");
   const [serverStatus, setServerStatus] = useState("Checking Server...");
 
-  // Function to check server status
-    const checkServer = async () => {
-      try {
-        await fetch("http://localhost:8000/", { mode: "no-cors" });
-        setServerStatus("🟢 Server is Running");
-      } catch (error) {
-        setServerStatus("🔴 Server is Down");
-      }
-    };
+  /**
+   * Checks if the backend server is running
+   * Uses no-cors mode to handle CORS issues during initial check
+   */
+  const checkServer = async () => {
+    try {
+      await fetch("http://localhost:8000/", { mode: "no-cors" });
+      setServerStatus("🟢 Server is Running");
+    } catch (error) {
+      setServerStatus("🔴 Server is Down");
+    }
+  };
 
-    useEffect(() => {
-      checkServer(); // Initial check
-      const interval = setInterval(checkServer, 5000);
-      return () => clearInterval(interval); // Cleanup on unmount
-    }, []);
+  // Effect hook to check server status periodically
+  useEffect(() => {
+    checkServer(); // Initial check
+    const interval = setInterval(checkServer, 5000); // Check every 5 seconds
+    return () => clearInterval(interval); // Cleanup on component unmount
+  }, []);
 
+  /**
+   * Handles form input changes
+   * Converts points value to integer, other fields remain as strings
+   */
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -36,6 +50,11 @@ function ActionForm({ onAddAction }) {
     });
   };
 
+  /**
+   * Validates form data before submission
+   * Checks for empty fields and ensures points are positive
+   * @returns {boolean} - Whether the form data is valid
+   */
   const validateForm = () => {
     if (!formData.action.trim()) {
       setError("Action description is required");
@@ -53,6 +72,10 @@ function ActionForm({ onAddAction }) {
     return true;
   };
 
+  /**
+   * Handles form submission
+   * Validates the form and calls the onAddAction callback
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
@@ -65,8 +88,10 @@ function ActionForm({ onAddAction }) {
     }
   };
 
+  // Form layout using Bootstrap classes for styling
   return (
     <div className="card mb-4 border-0 rounded-3">
+      {/* Card header with title and server status */}
       <div className="card-header bg-success border-0 text-white d-flex justify-content-between">
         <h3>Add New Sustainability Action</h3>
         <span className={`mt-2`}>
@@ -74,10 +99,11 @@ function ActionForm({ onAddAction }) {
         </span>
       </div>
       <div className="card-body">
+        {/* Error message display */}
         {error && <div className="alert alert-danger">{error}</div>}
         <form onSubmit={handleSubmit}>
           <div className="row g-3 align-items-center">
-            {/* Action Field */}
+            {/* Action input field */}
             <div className="col-md-4">
               <label htmlFor="action" className="form-label fw-bold">
                 Action:
@@ -94,7 +120,7 @@ function ActionForm({ onAddAction }) {
               />
             </div>
 
-            {/* Date Field */}
+            {/* Date input field */}
             <div className="col-md-4">
               <label htmlFor="date" className="form-label fw-bold">
                 Date:
@@ -110,7 +136,7 @@ function ActionForm({ onAddAction }) {
               />
             </div>
 
-            {/* Points Field */}
+            {/* Points input field */}
             <div className="col-md-4">
               <label htmlFor="points" className="form-label fw-bold">
                 Points:
@@ -127,7 +153,7 @@ function ActionForm({ onAddAction }) {
               />
             </div>
 
-            {/* Submit Button */}
+            {/* Submit button */}
             <div className="d-flex ms-auto" style={{ width: "auto" }}>
               <button type="submit" className="btn btn-success px-3">
                 Add

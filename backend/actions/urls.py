@@ -1,4 +1,10 @@
 from django.urls import path
+"""
+URL patterns configuration for the actions app.
+Defines API endpoints for sustainability actions:
+- GET/POST /actions/ - List all actions or create a new one
+- GET/PUT/PATCH/DELETE /actions/<id>/ - Retrieve, update, or delete a specific action by ID
+"""
 from . import views
 
 urlpatterns = [

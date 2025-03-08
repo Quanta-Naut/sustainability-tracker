@@ -1,3 +1,4 @@
+# Configuration class for the 'actions' app, defining default auto field and app name
 from django.apps import AppConfig
 
 class ActionsConfig(AppConfig):
