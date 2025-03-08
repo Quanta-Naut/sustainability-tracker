@@ -5,7 +5,7 @@
 You can watch a demonstration of the project here:
 ## Demo Video 
 
-<video width="600" controls> <source src="media/sustainable-video.mp4" type="video/mp4"> Your browser does not support the video tag. </video>
+<video width="600" controls> <source src="media/video.mp4" type="video/mp4"> Your browser does not support the video tag. </video>
 
 # Project Setup
 ## Cloning the Repository
