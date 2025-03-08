@@ -1,5 +1,7 @@
 # Sustainability Tracker
 
+![image](media/image.png)
+
 
 # Project Setup
 ## Cloning the Repository
